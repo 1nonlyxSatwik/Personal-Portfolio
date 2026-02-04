@@ -50,52 +50,128 @@ const fadeSlide: Variants = {
   }),
 };
 
-function RotatingCube() {
+function CursorTrail() {
+  const [points, setPoints] = useState<{ x: number; y: number; id: number }[]>([]);
+  const lastPoint = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const dist = Math.hypot(e.clientX - lastPoint.current.x, e.clientY - lastPoint.current.y);
+      if (dist > 30) {
+        setPoints((prev) => [...prev.slice(-15), { x: e.clientX, y: e.clientY, id: Date.now() }]);
+        lastPoint.current = { x: e.clientX, y: e.clientY };
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none scale-150 sm:scale-100">
+    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+      {points.map((p, i) => (
+        <motion.div
+          key={p.id}
+          initial={{ scale: 0, opacity: 0.8 }}
+          animate={{ scale: 4, opacity: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{
+            position: "absolute",
+            left: p.x,
+            top: p.y,
+            width: 4,
+            height: 4,
+            borderRadius: "50%",
+            backgroundColor: "hsl(18, 100%, 50%)",
+            boxShadow: "0 0 15px hsl(18, 100%, 50%)",
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function FloatingCube() {
+  return (
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 opacity-30">
       <motion.div
-        className="relative w-64 h-64"
         animate={{
           rotateY: [0, 360],
           rotateX: [0, 360],
+          y: [-20, 20, -20],
         }}
         transition={{
-          duration: 20,
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        style={{
+          width: 200,
+          height: 200,
+          transformStyle: "preserve-3d",
+        }}
+      >
+        {[
+          "translateZ(100px)",
+          "rotateY(180deg) translateZ(100px)",
+          "rotateY(90deg) translateZ(100px)",
+          "rotateY(-90deg) translateZ(100px)",
+          "rotateX(90deg) translateZ(100px)",
+          "rotateX(-90deg) translateZ(100px)",
+        ].map((transform, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 border-[1px] border-accent/40 bg-accent/5 flex items-center justify-center overflow-hidden"
+            style={{ 
+              transform,
+              backgroundImage: "radial-gradient(circle, rgba(255,68,0,0.2) 1px, transparent 1px)",
+              backgroundSize: "20px 20px" 
+            }}
+          >
+             <div className="w-1/2 h-1/2 bg-accent/10 blur-2xl rounded-full" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+function RotatingCube() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+      <motion.div
+        className="relative w-96 h-96"
+        animate={{
+          rotateY: [0, 360],
+          rotateZ: [0, 360],
+        }}
+        transition={{
+          duration: 30,
           repeat: Infinity,
           ease: "linear",
         }}
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Front */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
-        {/* Back */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "rotateY(180deg) translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
-        {/* Right */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "rotateY(90deg) translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
-        {/* Left */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "rotateY(-90deg) translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
-        {/* Top */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "rotateX(90deg) translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
-        {/* Bottom */}
-        <div
-          className="absolute inset-0 border-2 border-white/20 bg-white/5"
-          style={{ transform: "rotateX(-90deg) translateZ(128px)", backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "16px 16px" }}
-        />
+        {[
+          "translateZ(192px)",
+          "rotateY(180deg) translateZ(192px)",
+          "rotateY(90deg) translateZ(192px)",
+          "rotateY(-90deg) translateZ(192px)",
+          "rotateX(90deg) translateZ(192px)",
+          "rotateX(-90deg) translateZ(192px)",
+        ].map((transform, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 border border-white/10 bg-white/[0.02]"
+            style={{ 
+              transform, 
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)", 
+              backgroundSize: "32px 32px" 
+            }}
+          />
+        ))}
       </motion.div>
     </div>
   );
@@ -184,7 +260,7 @@ function CursorHighlight() {
       } as any}
     >
       <motion.div 
-        className="absolute inset-0 bg-accent/10 opacity-30"
+        className="absolute inset-0 bg-accent/20 opacity-40"
         style={{
           x: springX,
           y: springY,
@@ -324,6 +400,8 @@ export default function Portfolio() {
   return (
     <div className="dark min-h-screen bg-transparent selection:bg-accent/40 selection:text-white">
       <AmbientGrid />
+      <FloatingCube />
+      <CursorTrail />
       {!reduceMotion && <CursorHighlight />}
 
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6 pointer-events-none">
