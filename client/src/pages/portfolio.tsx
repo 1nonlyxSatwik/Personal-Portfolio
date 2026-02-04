@@ -95,7 +95,7 @@ function CursorTrail() {
 
 function FloatingCube() {
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 opacity-30">
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 opacity-70">
       <motion.div
         animate={{
           rotateY: [0, 360],
@@ -123,14 +123,14 @@ function FloatingCube() {
         ].map((transform, i) => (
           <div
             key={i}
-            className="absolute inset-0 border-[1px] border-accent/40 bg-accent/5 flex items-center justify-center overflow-hidden"
+            className="absolute inset-0 border-[1.5px] border-accent/60 bg-accent/10 flex items-center justify-center overflow-hidden"
             style={{ 
               transform,
-              backgroundImage: "radial-gradient(circle, rgba(255,68,0,0.2) 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, rgba(255,68,0,0.3) 1.5px, transparent 1.5px)",
               backgroundSize: "20px 20px" 
             }}
           >
-             <div className="w-1/2 h-1/2 bg-accent/10 blur-2xl rounded-full" />
+             <div className="w-1/2 h-1/2 bg-accent/20 blur-3xl rounded-full" />
           </div>
         ))}
       </motion.div>
@@ -140,7 +140,7 @@ function FloatingCube() {
 
 function RotatingCube() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+    <div className="absolute inset-0 flex items-center justify-center opacity-25 pointer-events-none">
       <motion.div
         className="relative w-96 h-96"
         animate={{
@@ -164,10 +164,10 @@ function RotatingCube() {
         ].map((transform, i) => (
           <div
             key={i}
-            className="absolute inset-0 border border-white/10 bg-white/[0.02]"
+            className="absolute inset-0 border-[1px] border-white/20 bg-white/[0.04]"
             style={{ 
               transform, 
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)", 
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 1.5px)", 
               backgroundSize: "32px 32px" 
             }}
           />
