@@ -40,21 +40,21 @@ const projectsData: Project[] = [
   {
     id: "satkart",
     title: "SatKart — Modern E-commerce",
-    description: "Full-stack commerce system handling 5k+ concurrent users with sub-200ms API response times.",
-    longDescription: "SatKart is a production-grade e-commerce platform built for scale. It features a sophisticated architecture leveraging Prisma ORM for type-safe database operations, Redis for high-speed caching, and a robust authentication system. The platform handles the entire commerce lifecycle from product discovery to protected cart management, coupon logic, and a seamless checkout flow.",
-    architecture: ["Prisma ORM", "Redis Caching", "JWT Auth", "Node.js API", "React/Tailwind"],
-    metrics: ["5k+ Concurrent Users", "Sub-200ms Response", "40% Load Time Improvement"],
-    tags: ["Full-stack", "E-commerce", "System Design"],
+    description: "Full-stack commerce system focused on clean architecture and smooth user interactions.",
+    longDescription: "SatKart is an e-commerce platform built to explore modern full-stack patterns. It features a structured architecture leveraging Prisma ORM for type-safe database operations, authentication for secure user sessions, and a responsive frontend. The platform manages product listings, protected carts, and a streamlined checkout flow with real-time loading states.",
+    architecture: ["Prisma ORM", "Node.js", "JWT Auth", "React", "Tailwind CSS"],
+    metrics: ["Full CRUD Operations", "Secure Authentication", "Responsive UI Design"],
+    tags: ["Full-stack", "E-commerce", "Web Development"],
     liveUrl: "https://satkart-commerce.vercel.app",
   },
   {
     id: "edusity",
     title: "Edusity — Learning Platform",
-    description: "Educational platform with real-time feedback, streaks, and infinite-scroll UI architecture.",
-    longDescription: "Edusity focuses on the intersection of pedagogy and performance. It delivers a fluid learning experience with instant quiz feedback, daily streak tracking, and a highly responsive infinite-carousel interface. Built as a high-fidelity frontend masterpiece, it demonstrates complex state management and animation-driven UI systems without compromising on accessibility.",
-    architecture: ["React", "Framer Motion", "Tailwind CSS", "Infinite Scroll Engine", "Local State Store"],
-    metrics: ["100/100 Lighthouse Performance", "Instant Feedback Engine", "Zero Jitter UI"],
-    tags: ["Frontend Engineering", "EdTech", "UX Architecture"],
+    description: "Educational frontend platform with real-time feedback and responsive learning modules.",
+    longDescription: "Edusity is a modern educational interface designed for clarity and engagement. It delivers a fluid learning experience with instant quiz feedback, progress tracking, and interactive carousels. The project demonstrates advanced frontend state management and accessible UI components built with a focus on usability.",
+    architecture: ["React", "Framer Motion", "Tailwind CSS", "JavaScript", "HTML/CSS"],
+    metrics: ["Interactive Quizzes", "Real-time Search", "Infinite Carousel UI"],
+    tags: ["Frontend Engineering", "EdTech", "UX Design"],
     liveUrl: "https://edusity-platform.vercel.app",
   },
 ];
@@ -461,6 +461,68 @@ function Section({
   );
 }
 
+function ContactForm() {
+  const [submitted, setSubmitted] = useState(false);
+
+  if (submitted) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12"
+      >
+        <div className="h-16 w-16 rounded-full bg-accent/20 flex items-center justify-center ring-1 ring-accent/50 shadow-[0_0_20px_rgba(255,68,0,0.2)]">
+          <Sparkles className="h-8 w-8 text-accent" />
+        </div>
+        <h3 className="text-xl font-bold text-white">Message Sent Successfully</h3>
+        <p className="text-white/50 text-sm max-w-xs">
+          Thank you for reaching out. I'll get back to you shortly.
+        </p>
+        <button 
+          onClick={() => setSubmitted(false)}
+          className="text-xs font-black uppercase tracking-widest text-accent hover:text-white transition-colors pt-4"
+        >
+          Send another message
+        </button>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+      <div className="space-y-1">
+        <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Name</label>
+        <input 
+          required
+          placeholder="Your name" 
+          className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5"
+        />
+      </div>
+      <div className="space-y-1">
+        <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Email</label>
+        <input 
+          required
+          type="email"
+          placeholder="Your email" 
+          className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5"
+        />
+      </div>
+      <div className="space-y-1">
+        <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Brief</label>
+        <textarea 
+          required
+          placeholder="What are we building?" 
+          rows={4}
+          className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5 resize-none"
+        />
+      </div>
+      <button type="submit" className="w-full glass bg-accent/20 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.3em] text-white hover:bg-accent/30 hover:shadow-[0_0_30px_rgba(255,68,0,0.2)] transition-all ring-1 ring-accent/50">
+        Initiate Connection
+      </button>
+    </form>
+  );
+}
+
 function SpotlightSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -655,16 +717,14 @@ export default function Portfolio() {
           <Section id="about" eyebrow="The Identity" title="Clean. Structured. Intentional." index={0}>
             <p className="mb-8 text-lg">
               I’m <span className="text-white font-medium">Satwik Mani Tripathi</span>, a second-year Computer Science student 
-              at Newton School of Technology. I care deeply about how interfaces <span className="text-accent italic font-medium">feel</span>—not just how they function.
+              at Newton School of Technology. <span className="text-white">Focused on full-stack development, data structures, and the engineering of intentional user experiences.</span>
             </p>
-            <p className="text-white/70 mb-6">
-              I prefer clarity over complexity and quality over quantity. My work is focused on 
-              full-stack development and data structures, but always through the lens of 
-              creating design decisions that age well.
-            </p>
-            <p className="text-white/50">
-              I spend my time obsessing over typography, spacing, and the quiet precision of 
+            <p className="text-white/70 mb-6 font-light">
+              I prefer clarity over complexity and quality over quantity. I spend my time obsessing over typography, spacing, and the quiet precision of 
               motion-driven UI systems to build products that command respect.
+            </p>
+            <p className="text-white/50 border-l border-accent/30 pl-6 py-2">
+              <span className="text-accent font-bold">Independent Developer</span> — building real-world applications with a priority on quality over quantity and designs that age well.
             </p>
           </Section>
 
@@ -731,8 +791,7 @@ export default function Portfolio() {
             <div className="grid gap-16 lg:grid-cols-2">
               <div>
                 <p className="text-2xl text-white/80 mb-10 font-light leading-snug">
-                  Seeking <span className="text-accent italic font-medium">elite partnerships</span> for 
-                  visionary digital products.
+                  Seeking <span className="text-accent italic font-medium">meaningful partnerships</span> to build thoughtful, high-impact digital products.
                 </p>
                 <div className="space-y-6">
                   <a href="mailto:satwikmani@example.com" className="group flex items-center gap-5 text-white/80 hover:text-accent transition-all">
@@ -740,45 +799,15 @@ export default function Portfolio() {
                     <span className="text-base font-bold tracking-wide">satwikmani@example.com</span>
                   </a>
                   <div className="flex gap-4 mt-8">
-                     <a href="https://instagram.com" target="_blank" className="glass p-4 rounded-full hover:text-accent transition-all"><Instagram className="h-5 w-5" /></a>
-                     <a href="https://linkedin.com" target="_blank" className="glass p-4 rounded-full hover:text-accent transition-all"><Linkedin className="h-5 w-5" /></a>
-                     <a href="https://github.com" target="_blank" className="glass p-4 rounded-full hover:text-accent transition-all"><Github className="h-5 w-5" /></a>
+                     <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Instagram className="h-5 w-5" /></a>
+                     <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Linkedin className="h-5 w-5" /></a>
+                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Github className="h-5 w-5" /></a>
                   </div>
                 </div>
               </div>
               
               <div className="glass-card grain p-10 ring-1 ring-accent/20 shadow-2xl">
-                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Message sent to satwikmani@example.com'); }}>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Name</label>
-                    <input 
-                      required
-                      placeholder="Your name" 
-                      className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Email</label>
-                    <input 
-                      required
-                      type="email"
-                      placeholder="Your email" 
-                      className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/30 ml-2">Brief</label>
-                    <textarea 
-                      required
-                      placeholder="What are we building?" 
-                      rows={4}
-                      className="w-full glass bg-white/5 px-6 py-5 rounded-2xl text-sm text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all ring-1 ring-white/5 resize-none"
-                    />
-                  </div>
-                  <button type="submit" className="w-full glass bg-accent/20 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.3em] text-white hover:bg-accent/30 hover:shadow-[0_0_30px_rgba(255,68,0,0.2)] transition-all ring-1 ring-accent/50">
-                    Initiate Connection
-                  </button>
-                </form>
+                <ContactForm />
               </div>
             </div>
           </Section>

@@ -1,0 +1,33 @@
+Refine and correct the entire portfolio experience to reach a true production-ready, Apple-level quality. Keep the existing dark graphite liquid-glass visual system, but improve content accuracy, typography clarity, motion smoothness, and interaction polish across all sections.
+
+First, fix incorrect engineering metrics and misleading claims in both SatKart and Edusity project detail overlays. Replace them with realistic, truthful, internship-appropriate descriptions based strictly on the actual project capabilities. Avoid exaggerated numbers like “5k+ concurrent users” or “100/100 Lighthouse” unless verified. The tone must sound like an honest junior full-stack engineer, not fake marketing.
+
+Update the About / Identity text content as follows:
+
+Replace the line describing focus with:
+“Focused on full-stack development, data structures, and the engineering of intentional user experiences.”
+
+Replace the “Independent Developer / Freelance / Open Source…” block with:
+“Independent Developer — building real-world applications with a priority on quality over quantity and designs that age well.”
+
+Replace the collaboration section text with:
+“Collaborate — seeking meaningful partnerships to build thoughtful, high-impact digital products.”
+Ensure typography hierarchy, spacing, and fade-in motion feel calm, premium, and perfectly readable.
+
+In the Connect section, make all interactions fully functional and realistic:
+
+Clicking the email icon must open the user’s default mail client using a proper mailto: link with Satwik’s email prefilled.
+
+Social icons (Instagram, LinkedIn, GitHub) must open the real external links in a new tab with smooth hover glow and subtle lift motion.
+
+Add a clean success feedback state if a contact form is submitted (no fake backend simulation text).
+
+Globally improve motion smoothness and UI polish:
+
+Remove any jitter, harsh easing, or inconsistent animation timing.
+
+Use slow, physics-based Framer Motion transitions with consistent duration and easing curves.
+
+Ensure glass blur, cursor spotlight, hover lift, and scroll transitions feel quiet, cinematic, and premium, never flashy.
+
+Improve responsive spacing and readability for laptop and mobile so the layout feels professionally engineered.
