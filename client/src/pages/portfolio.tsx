@@ -293,17 +293,17 @@ function RotatingCube() {
 
 function AmbientGrid() {
   const { scrollYProgress } = useScroll();
-  const yRange = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const opacityRange = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.6, 0.4]);
+  const yRange = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const opacityRange = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.7, 0.4]);
   
   const gridItems = useMemo(() => {
-    return Array.from({ length: 48 }).map((_, i) => ({
+    return Array.from({ length: 60 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      duration: 20 + Math.random() * 20,
+      duration: 15 + Math.random() * 25,
       delay: Math.random() * -20,
-      size: 4 + Math.random() * 12,
+      size: 2 + Math.random() * 8,
     }));
   }, []);
 
@@ -313,13 +313,25 @@ function AmbientGrid() {
       style={{ opacity: opacityRange }}
     >
       <motion.div 
+        className="absolute inset-0 w-full h-full opacity-30"
+        animate={{
+          background: [
+            "radial-gradient(circle at 50% 50%, rgba(255, 68, 0, 0.03) 0%, transparent 70%)",
+            "radial-gradient(circle at 40% 60%, rgba(255, 68, 0, 0.05) 0%, transparent 70%)",
+            "radial-gradient(circle at 60% 40%, rgba(255, 68, 0, 0.03) 0%, transparent 70%)",
+            "radial-gradient(circle at 50% 50%, rgba(255, 68, 0, 0.03) 0%, transparent 70%)",
+          ],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div 
         className="absolute inset-0 w-full h-full"
         style={{ y: yRange }}
       >
         {gridItems.map((item) => (
           <motion.div
             key={item.id}
-            className="absolute rounded-sm bg-white/[0.03] ring-1 ring-white/[0.02]"
+            className="absolute rounded-full bg-white/[0.05] ring-1 ring-white/[0.02] blur-[1px]"
             style={{
               left: `${item.x}%`,
               top: `${item.y}%`,
@@ -327,9 +339,8 @@ function AmbientGrid() {
               height: item.size,
             }}
             animate={{
-              x: [0, 15, -15, 0],
-              y: [0, -20, 20, 0],
-              opacity: [0.02, 0.08, 0.02],
+              y: [0, -30, 0],
+              opacity: [0.03, 0.1, 0.03],
             }}
             transition={{
               duration: item.duration,
@@ -425,35 +436,43 @@ function Section({
   children: React.ReactNode;
   index: number;
 }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center center"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
+  const blur = useTransform(scrollYProgress, [0, 1], ["20px", "0px"]);
+
   return (
     <motion.section
       id={id}
+      ref={ref}
       data-testid={`section-${id}`}
-      className="glass-card grain group relative mx-auto w-full max-w-5xl px-8 py-12 sm:px-12 sm:py-16 mb-12"
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.1 }}
+      style={{ opacity, y, filter: `blur(${blur.get()})` }}
+      className="glass-card grain group relative mx-auto w-full max-w-5xl px-8 py-12 sm:px-12 sm:py-20 mb-24"
       transition={{
         duration: 1.2,
-        delay: 0.1,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
       <div className="relative z-10">
         <div
           data-testid={`text-eyebrow-${id}`}
-          className="mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-accent"
+          className="mb-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.4em] text-accent"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,68,0,0.6)]" />
           <span>{eyebrow}</span>
         </div>
         <h2
           data-testid={`text-title-${id}`}
-          className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl"
+          className="text-balance text-4xl font-black tracking-tighter text-white sm:text-5xl leading-none"
         >
           {title}
         </h2>
-        <div className="mt-8 text-[16px] leading-relaxed text-white/70 font-light tracking-wide">
+        <div className="mt-10 text-[17px] leading-relaxed text-white/70 font-light tracking-wide">
           {children}
         </div>
       </div>
@@ -527,9 +546,14 @@ function SpotlightSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
   const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
   const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+  const yParallax = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   function handleMouseMove(e: React.MouseEvent) {
     if (!containerRef.current) return;
@@ -553,25 +577,25 @@ function SpotlightSection() {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="py-32 relative flex flex-col items-center justify-center text-center overflow-hidden cursor-none"
+      className="py-48 relative flex flex-col items-center justify-center text-center overflow-hidden cursor-none"
     >
-      <div className="pointer-events-none select-none opacity-20">
-        <h2 className="text-[12vw] font-black leading-none tracking-tighter text-white/10">
+      <motion.div style={{ y: yParallax }} className="pointer-events-none select-none opacity-10">
+        <h2 className="text-[12vw] font-black leading-[0.9] tracking-tighter text-white/20">
           SELECTED WORK
         </h2>
-        <h2 className="text-[10vw] font-black leading-none tracking-tighter text-white/10 -mt-10">
+        <h2 className="text-[10vw] font-black leading-[0.9] tracking-tighter text-white/20">
           SYSTEMS BUILT TO SCALE
         </h2>
-      </div>
+      </motion.div>
 
       <motion.div
-        style={spotlightStyle}
+        style={{ ...spotlightStyle, y: yParallax }}
         className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10"
       >
-        <h2 className="text-[12vw] font-black leading-none tracking-tighter text-white">
+        <h2 className="text-[12vw] font-black leading-[0.9] tracking-tighter text-white">
           SELECTED WORK
         </h2>
-        <h2 className="text-[10vw] font-black leading-none tracking-tighter text-accent -mt-10">
+        <h2 className="text-[10vw] font-black leading-[0.9] tracking-tighter text-accent">
           SYSTEMS BUILT TO SCALE
         </h2>
       </motion.div>
@@ -814,26 +838,40 @@ export default function Portfolio() {
         </div>
       </main>
 
-      <footer className="px-6 py-24 border-t border-accent/10 bg-black/40 relative overflow-hidden">
+      <footer className="px-6 py-48 border-t border-accent/10 bg-black/40 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
            <RotatingCube />
         </div>
-        <div className="mx-auto max-w-6xl flex flex-col items-center gap-12 text-center relative z-10">
-          <div className="space-y-4">
-             <h2 className="text-4xl font-black text-white">Let’s build something that matters.</h2>
-             <p className="text-white/40 font-light tracking-widest uppercase text-xs">Based in NST • Available Globally</p>
+        <div className="mx-auto max-w-6xl flex flex-col items-center gap-16 text-center relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: fadeEase }}
+            className="space-y-6"
+          >
+             <h2 className="text-5xl sm:text-7xl font-black text-white tracking-tighter leading-none">
+               Let’s build something <br />
+               <span className="text-accent italic">that matters.</span>
+             </h2>
+             <p className="text-white/40 font-light tracking-[0.4em] uppercase text-xs">Based in NST • Available Globally</p>
+          </motion.div>
+          
+          <div className="flex flex-wrap justify-center gap-x-16 gap-y-8">
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-[0.3em] text-white/30 hover:text-accent transition-all hover:tracking-[0.4em]">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-[0.3em] text-white/30 hover:text-accent transition-all hover:tracking-[0.4em]">LinkedIn</a>
+            <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-[0.3em] text-white/30 hover:text-accent transition-all hover:tracking-[0.4em]">Instagram</a>
           </div>
           
-          <div className="flex gap-12">
-            <a href="https://github.com" target="_blank" className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 hover:text-accent transition-all">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 hover:text-accent transition-all">LinkedIn</a>
-            <a href="https://instagram.com" target="_blank" className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 hover:text-accent transition-all">Instagram</a>
-          </div>
-          
-          <div className="text-[11px] font-black uppercase tracking-[0.5em] text-white/5">
-            © 2026 forged by Satwik Mani Tripathi
+          <div className="pt-12 border-t border-white/5 w-full flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div className="text-[10px] font-black uppercase tracking-[0.5em] text-white/10">
+              © 2026 forged by Satwik Mani Tripathi
+            </div>
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
+              Crafted with Apple-level restraint
+            </div>
           </div>
         </div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent blur-sm" />
       </footer>
     </div>
   );

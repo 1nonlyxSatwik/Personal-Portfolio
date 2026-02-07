@@ -1,0 +1,41 @@
+Refine the post-hero experience of the existing portfolio without redesigning the whole site. Focus only on typography consistency, spacing precision, and emotional engagement from the Selected Work section down to the footer.
+
+First, fix the large background typography reading
+“Selected Work / Systems Built to Scale.”
+Make this typography use the exact same font family, weight, optical sizing, and tracking as the hero text “Engineering Systems.”
+Correct the line-height, vertical rhythm, and baseline alignment so every stacked word has perfectly equal spacing and looks mathematically balanced.
+Remove any uneven gaps, crowding, or scale mismatch so the typography feels engineered and premium.
+
+Second, eliminate the boring visual feeling in the lower half of the page while keeping the calm Apple-style restraint.
+Introduce subtle cinematic depth and motion, such as:
+
+extremely slow ambient gradient or noise drift in the background
+
+faint floating particles or soft light diffusion with very low opacity
+
+gentle parallax movement on oversized background typography
+
+smooth opacity blending and blur transitions between sections
+
+refined glass hover micro-interactions with soft lift and diffusion
+
+All motion must remain slow, minimal, and luxurious — never flashy, neon, playful, or distracting.
+
+Third, improve the narrative scroll flow from
+Selected Work → Trajectory → Collaborate → Footer
+so the experience feels like a continuous emotional progression instead of separate static blocks.
+Use scroll-linked fades, depth blur shifts, and smooth spatial transitions to guide the user naturally toward the final call-to-action.
+
+Finally, enhance the footer moment so it feels memorable and complete:
+
+add a calm but strong closing statement with clear hierarchy
+
+introduce subtle glow or light diffusion for depth
+
+ensure generous spacing and perfect alignment
+
+maintain quiet confidence instead of loud marketing energy
+
+The end result should transform the lower half of the site from
+static and boring → cinematic, smooth, and emotionally engaging,
+while fully preserving the premium Apple-level design language already established.
