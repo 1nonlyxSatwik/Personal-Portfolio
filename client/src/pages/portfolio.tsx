@@ -159,44 +159,40 @@ function ProjectDetail({ id, onClose }: { id: string; onClose: () => void }) {
 }
 
 function CursorTrail() {
-  const [points, setPoints] = useState<{ x: number; y: number; id: number }[]>([]);
-  const lastPoint = useRef({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 150, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 150, damping: 30 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const dist = Math.hypot(e.clientX - lastPoint.current.x, e.clientY - lastPoint.current.y);
-      if (dist > 30) {
-        setPoints((prev) => [...prev.slice(-15), { x: e.clientX, y: e.clientY, id: Date.now() }]);
-        lastPoint.current = { x: e.clientX, y: e.clientY };
-      }
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-      {points.map((p, i) => (
-        <motion.div
-          key={p.id}
-          initial={{ scale: 0, opacity: 0.8 }}
-          animate={{ scale: 4, opacity: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          style={{
-            position: "absolute",
-            left: p.x,
-            top: p.y,
-            width: 4,
-            height: 4,
-            borderRadius: "50%",
-            backgroundColor: "hsl(18, 100%, 50%)",
-            boxShadow: "0 0 15px hsl(18, 100%, 50%)",
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-        />
-      ))}
+    <div className="fixed inset-0 pointer-events-none z-[100]">
+      <motion.div
+        className="absolute w-8 h-8 border border-accent/50 rounded-full mix-blend-difference"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+      />
+      <motion.div
+        className="absolute w-1.5 h-1.5 bg-accent rounded-full shadow-[0_0_15px_rgba(255,68,0,0.8)]"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+      />
     </div>
   );
 }
@@ -665,18 +661,18 @@ export default function Portfolio() {
         )}
       </AnimatePresence>
 
-      <header className="fixed top-0 left-0 right-0 z-50 px-8 py-8 pointer-events-none">
+      <header className="fixed top-0 left-0 right-0 z-50 px-10 py-10 pointer-events-none">
         <nav className="mx-auto max-w-7xl flex justify-between items-center pointer-events-auto">
-          <div className="glass px-6 py-3 rounded-full flex items-center gap-4 grain ring-1 ring-white/20 shadow-xl backdrop-blur-md">
-            <Sparkles className="h-4 w-4 text-accent" />
-            <span className="text-sm font-black tracking-tight text-white uppercase">Satwik Mani Tripathi</span>
+          <div className="glass px-8 py-4 rounded-full flex items-center gap-5 grain ring-1 ring-white/30 shadow-2xl backdrop-blur-xl">
+            <Sparkles className="h-5 w-5 text-accent" />
+            <span className="text-base font-black tracking-tighter text-white uppercase">Satwik Mani Tripathi</span>
           </div>
-          <div className="hidden sm:flex glass px-3 py-2 rounded-full items-center gap-2 grain ring-1 ring-white/10 shadow-lg backdrop-blur-md">
+          <div className="hidden sm:flex glass px-4 py-2.5 rounded-full items-center gap-3 grain ring-1 ring-white/10 shadow-xl backdrop-blur-xl">
             {["About", "Projects", "Journey", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="px-5 py-2 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-accent transition-all rounded-full hover:bg-accent/5 hover:shadow-[0_0_15px_rgba(255,68,0,0.2)]"
+                className="px-6 py-2.5 text-xs font-black uppercase tracking-[0.2em] text-white/40 hover:text-accent transition-all rounded-full hover:bg-accent/10 hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"
               >
                 {item}
               </a>
@@ -684,7 +680,7 @@ export default function Portfolio() {
           </div>
           <a
             href="#contact"
-            className="glass px-8 py-3.5 rounded-full text-[11px] font-black uppercase tracking-[0.3em] text-white hover:text-accent hover:ring-accent/40 transition-all ring-1 ring-white/20 shadow-xl backdrop-blur-md hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"
+            className="glass px-10 py-4.5 rounded-full text-xs font-black uppercase tracking-[0.4em] text-white hover:text-accent hover:ring-accent/50 transition-all ring-1 ring-white/30 shadow-2xl backdrop-blur-xl hover:shadow-[0_0_30px_rgba(255,68,0,0.4)]"
           >
             Connect
           </a>
