@@ -45,17 +45,17 @@ const projectsData: Project[] = [
     architecture: ["Prisma ORM", "Node.js", "JWT Auth", "React", "Tailwind CSS"],
     metrics: ["Full CRUD Operations", "Secure Authentication", "Responsive UI Design"],
     tags: ["Full-stack", "E-commerce", "Web Development"],
-    liveUrl: "https://satkart-commerce.vercel.app",
+    liveUrl: "https://sat-kart-frontend-5ver-iwdeuo3tn-satwiks-projects-8102ca2d.vercel.app/?_vercel_share=Q6KL0B3A6roGyVszSXcjvsLYtdgEfrDf",
   },
   {
     id: "edusity",
-    title: "Edusity — Learning Platform",
-    description: "Educational frontend platform with real-time feedback and responsive learning modules.",
-    longDescription: "Edusity is a modern educational interface designed for clarity and engagement. It delivers a fluid learning experience with instant quiz feedback, progress tracking, and interactive carousels. The project demonstrates advanced frontend state management and accessible UI components built with a focus on usability.",
+    title: "Edusity — University Portal",
+    description: "Higher education platform helping students find the ideal degree and navigate university resources.",
+    longDescription: "Edusity is a specialized university interface designed to guide students through academic decision-making. It features a comprehensive directory of degrees, campus resources, and interactive modules to help prospective students check which path is best for them. The project focuses on clear information hierarchy and accessible educational design.",
     architecture: ["React", "Framer Motion", "Tailwind CSS", "JavaScript", "HTML/CSS"],
-    metrics: ["Interactive Quizzes", "Real-time Search", "Infinite Carousel UI"],
-    tags: ["Frontend Engineering", "EdTech", "UX Design"],
-    liveUrl: "https://edusity-platform.vercel.app",
+    metrics: ["Degree Discovery System", "University Resource Hub", "Responsive Educational UI"],
+    tags: ["Higher Education", "EdTech", "UX Research"],
+    liveUrl: "https://edusity-learning-mrxe.vercel.app/",
   },
 ];
 
@@ -198,8 +198,10 @@ function CursorTrail() {
 }
 
 function FloatingCube() {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 500, 1000], [0.7, 0.4, 0]);
+  const { scrollYProgress } = useScroll();
+  const rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 720]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 0.4, 0.1]);
 
   return (
     <motion.div 
@@ -207,20 +209,12 @@ function FloatingCube() {
       style={{ opacity }}
     >
       <motion.div
-        animate={{
-          rotateY: [0, 360],
-          rotateX: [0, 360],
-          y: [-20, 20, -20],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear",
-        }}
         style={{
           width: 200,
           height: 200,
           transformStyle: "preserve-3d",
+          rotateX,
+          rotateY,
         }}
       >
         {[
@@ -233,7 +227,7 @@ function FloatingCube() {
         ].map((transform, i) => (
           <div
             key={i}
-            className="absolute inset-0 border-[1.5px] border-accent/60 bg-accent/10 flex items-center justify-center overflow-hidden"
+            className="absolute inset-0 border-[1.5px] border-accent/60 bg-accent/10 flex items-center justify-center overflow-hidden backdrop-blur-sm"
             style={{ 
               transform,
               backgroundImage: "radial-gradient(circle, rgba(255,68,0,0.3) 1.5px, transparent 1.5px)",
@@ -664,7 +658,9 @@ export default function Portfolio() {
       <header className="fixed top-0 left-0 right-0 z-50 px-10 py-10 pointer-events-none">
         <nav className="mx-auto max-w-7xl flex justify-between items-center pointer-events-auto">
           <div className="glass px-8 py-4 rounded-full flex items-center gap-5 grain ring-1 ring-white/30 shadow-2xl backdrop-blur-xl">
-            <Sparkles className="h-5 w-5 text-accent" />
+            <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-accent to-orange-700 flex items-center justify-center shadow-lg shadow-accent/20">
+              <Sparkles className="h-4 w-4 text-white" />
+            </div>
             <span className="text-base font-black tracking-tighter text-white uppercase">Satwik Mani Tripathi</span>
           </div>
           <div className="hidden sm:flex glass px-4 py-2.5 rounded-full items-center gap-3 grain ring-1 ring-white/10 shadow-xl backdrop-blur-xl">
