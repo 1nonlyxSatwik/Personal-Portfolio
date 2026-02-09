@@ -88,72 +88,80 @@ function ProjectDetail({ id, onClose }: { id: string; onClose: () => void }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 100 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-[60] glass-card m-4 sm:m-8 overflow-y-auto p-8 sm:p-16 grain"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8 backdrop-blur-md bg-black/40"
+      onClick={onClose}
     >
-      <button
-        onClick={onClose}
-        className="mb-12 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white/40 hover:text-accent transition-colors"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="glass-card w-full max-w-5xl max-h-[90vh] overflow-y-auto p-8 sm:p-16 grain relative"
+        onClick={(e) => e.stopPropagation()}
       >
-        <ChevronLeft className="h-4 w-4" />
-        Back to Portfolio
-      </button>
+        <button
+          onClick={onClose}
+          className="absolute top-8 right-8 p-4 rounded-full glass hover:text-accent transition-colors z-10"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
 
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-12">
-          <div className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
-            System Analysis — {project.id}
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <div className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-4">
+              System Analysis — {project.id}
+            </div>
+            <h1 className="text-5xl sm:text-7xl font-black text-white tracking-tighter mb-8 leading-none">
+              {project.title}
+            </h1>
+            <p className="text-xl text-white/60 font-light leading-relaxed mb-12">
+              {project.longDescription}
+            </p>
           </div>
-          <h1 className="text-5xl sm:text-7xl font-black text-white tracking-tighter mb-8 leading-none">
-            {project.title}
-          </h1>
-          <p className="text-xl text-white/60 font-light leading-relaxed mb-12">
-            {project.longDescription}
-          </p>
-        </div>
 
-        <div className="grid sm:grid-cols-2 gap-12 mb-16">
-          <div className="space-y-6">
-            <h3 className="text-xs font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Core Architecture</h3>
-            <div className="flex flex-wrap gap-3">
-              {project.architecture.map((tech) => (
-                <span key={tech} className="glass px-4 py-2 rounded-full text-xs font-bold text-white/80">{tech}</span>
-              ))}
+          <div className="grid sm:grid-cols-2 gap-12 mb-16">
+            <div className="space-y-6">
+              <h3 className="text-xs font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Core Architecture</h3>
+              <div className="flex flex-wrap gap-3">
+                {project.architecture.map((tech) => (
+                  <span key={tech} className="glass px-4 py-2 rounded-full text-xs font-bold text-white/80">{tech}</span>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-xs font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Engineering Metrics</h3>
+              <div className="space-y-4">
+                {project.metrics.map((metric) => (
+                  <div key={metric} className="flex items-center gap-3">
+                    <div className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,68,0,0.6)]" />
+                    <span className="text-sm font-medium text-white/70">{metric}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="space-y-6">
-            <h3 className="text-xs font-black uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">Engineering Metrics</h3>
-            <div className="space-y-4">
-              {project.metrics.map((metric) => (
-                <div key={metric} className="flex items-center gap-3">
-                  <div className="h-1 w-1 rounded-full bg-accent" />
-                  <span className="text-sm font-medium text-white/70">{metric}</span>
-                </div>
-              ))}
-            </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 border-t border-white/5 pt-12">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass bg-accent/20 px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest text-white ring-1 ring-accent/50 hover:bg-accent/30 hover:shadow-[0_0_30px_rgba(255,68,0,0.3)] transition-all text-center"
+            >
+              Visit Live Site
+            </a>
+            <button
+              onClick={onClose}
+              className="px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest text-white/40 hover:text-white transition-all text-center"
+            >
+              Close Detail
+            </button>
           </div>
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-6 border-t border-white/5 pt-12">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass bg-accent/20 px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest text-white ring-1 ring-accent/50 hover:bg-accent/30 transition-all text-center"
-          >
-            Visit Live Site
-          </a>
-          <button
-            onClick={onClose}
-            className="px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest text-white/40 hover:text-white transition-all text-center"
-          >
-            Close Detail
-          </button>
-        </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -603,9 +611,17 @@ function SpotlightSection() {
   );
 }
 
-export default function Portfolio() {
+function Portfolio() {
   const reduceMotion = useReducedMotion();
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (selectedProjectId) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedProjectId]);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -762,8 +778,12 @@ export default function Portfolio() {
                 <motion.article
                   key={p.id}
                   data-testid={`card-project-${p.id}`}
-                  className="glass-card grain group relative flex flex-col p-12 h-full border border-white/5 hover:border-accent/40 transition-all cursor-pointer shadow-2xl"
-                  onClick={() => setSelectedProjectId(p.id)}
+                  className="glass-card grain group relative flex flex-col p-12 h-full border border-white/5 hover:border-accent/40 transition-all cursor-pointer shadow-2xl overflow-visible"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSelectedProjectId(p.id);
+                  }}
                   whileHover={{ 
                     y: -15,
                     scale: 1.01,
