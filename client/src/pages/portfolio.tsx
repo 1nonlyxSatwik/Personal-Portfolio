@@ -611,6 +611,55 @@ function SpotlightSection() {
   );
 }
 
+function Navbar() {
+  const { scrollY } = useScroll();
+  const width = useTransform(scrollY, [0, 100], ["100%", "420px"]);
+  const borderRadius = useTransform(scrollY, [0, 100], ["0px", "999px"]);
+  const top = useTransform(scrollY, [0, 100], ["0px", "32px"]);
+  const paddingLeft = useTransform(scrollY, [0, 100], ["40px", "24px"]);
+  const paddingRight = useTransform(scrollY, [0, 100], ["40px", "20px"]);
+  const paddingTop = useTransform(scrollY, [0, 100], ["24px", "10px"]);
+  const paddingBottom = useTransform(scrollY, [0, 100], ["24px", "10px"]);
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-[100] pointer-events-none">
+      <motion.nav
+        style={{
+          width,
+          borderRadius,
+          top,
+          paddingLeft,
+          paddingRight,
+          paddingTop,
+          paddingBottom,
+        }}
+        className="fixed left-1/2 -translate-x-1/2 flex items-center justify-between glass backdrop-blur-3xl shadow-2xl overflow-hidden border-white/10 pointer-events-auto"
+      >
+        <div className="flex items-center gap-3">
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="h-5 w-5 border-2 border-accent border-t-transparent rounded-full shadow-[0_0_10px_rgba(255,68,0,0.4)]" 
+          />
+          <span className="text-xs font-black tracking-tighter uppercase text-white whitespace-nowrap">Satwik Mani Tripathi</span>
+        </div>
+        
+        <div className="flex items-center gap-1 ml-4">
+          {["Intro", "Projects", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase() === "artifacts" ? "projects" : item.toLowerCase()}`}
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all hover:bg-white/5 rounded-full"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+      </motion.nav>
+    </header>
+  );
+}
+
 export default function Portfolio() {
   const reduceMotion = useReducedMotion();
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
@@ -682,42 +731,7 @@ export default function Portfolio() {
         )}
       </AnimatePresence>
 
-      <header className="fixed inset-x-0 top-0 z-[100] pointer-events-none">
-        <motion.nav
-          initial={false}
-          style={{
-            width: useTransform(scrollY, [0, 100], ["100%", "420px"]),
-            borderRadius: useTransform(scrollY, [0, 100], ["0px", "999px"]),
-            top: useTransform(scrollY, [0, 100], ["0px", "32px"]),
-            paddingLeft: useTransform(scrollY, [0, 100], ["40px", "24px"]),
-            paddingRight: useTransform(scrollY, [0, 100], ["40px", "20px"]),
-            paddingTop: useTransform(scrollY, [0, 100], ["24px", "10px"]),
-            paddingBottom: useTransform(scrollY, [0, 100], ["24px", "10px"]),
-          }}
-          className="fixed left-1/2 -translate-x-1/2 flex items-center justify-between glass backdrop-blur-3xl shadow-2xl overflow-hidden border-white/10 pointer-events-auto"
-        >
-          <div className="flex items-center gap-3">
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="h-5 w-5 border-2 border-accent border-t-transparent rounded-full shadow-[0_0_10px_rgba(255,68,0,0.4)]" 
-            />
-            <span className="text-xs font-black tracking-tighter uppercase text-white whitespace-nowrap">Satwik Mani Tripathi</span>
-          </div>
-          
-          <div className="flex items-center gap-1 ml-4">
-            {["Intro", "Projects", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase() === "artifacts" ? "projects" : item.toLowerCase()}`}
-                className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all hover:bg-white/5 rounded-full"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        </motion.nav>
-      </header>
+      <Navbar />
 
       <main className="relative pt-32">
         <section
