@@ -796,7 +796,14 @@ export default function Portfolio() {
                 <motion.article
                   key={p.id}
                   data-testid={`card-project-${p.id}`}
-                  className="glass-card grain group relative flex flex-col p-12 h-full border border-white/5 hover:border-accent/40 transition-all cursor-pointer shadow-2xl overflow-visible"
+                  className="glass-card grain group relative flex flex-col p-12 h-full border border-white/5 cursor-pointer shadow-2xl overflow-visible"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                  }}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
