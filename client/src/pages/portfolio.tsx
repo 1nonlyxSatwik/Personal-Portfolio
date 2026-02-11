@@ -704,7 +704,9 @@ export default function Portfolio() {
             <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-accent to-orange-700 flex items-center justify-center shadow-lg shadow-accent/20">
               <Sparkles className="h-4 w-4 text-white" />
             </div>
-            <span className="text-base font-black tracking-tighter text-white uppercase">Satwik Mani Tripathi</span>
+            <Link href="/profile">
+              <span className="text-base font-black tracking-tighter text-white uppercase cursor-pointer hover:text-accent transition-colors">Satwik Mani Tripathi</span>
+            </Link>
           </div>
           <div className="hidden sm:flex glass px-4 py-2.5 rounded-full items-center gap-3 grain ring-1 ring-white/10 shadow-xl backdrop-blur-xl">
             {["Intro", "Artifacts", "Journey", "Contact"].map((item) => (
@@ -833,23 +835,18 @@ export default function Portfolio() {
           <Section id="journey" eyebrow="The Path" title="Trajectory" index={2}>
             <div className="space-y-6">
               {journey.map((j) => (
-                <div key={j.id} className="relative pl-12 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-accent/20">
-                  <div className="absolute left-[-4px] top-2 h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_rgba(255,68,0,0.6)]" />
-                  <div className="glass-card grain p-10 ring-1 ring-white/5 hover:ring-accent/20 transition-all">
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-white">{j.title}</h3>
-                        <div className="text-accent text-xs font-black uppercase tracking-[0.3em] mt-2">
-                          {j.org}
-                        </div>
-                      </div>
-                      <div className="text-[11px] font-mono text-white/30 font-bold uppercase tracking-widest whitespace-nowrap">
-                        {j.period}
-                      </div>
+                <div key={j.id} className="glass-card grain p-10 flex flex-col sm:flex-row gap-8 items-start ring-1 ring-white/5 hover:ring-accent/20 transition-all">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-white">{j.title}</h3>
+                    <div className="text-accent text-xs font-black uppercase tracking-[0.3em] mt-2">
+                      {j.org}
                     </div>
                     <p className="mt-6 text-[15px] text-white/60 leading-relaxed max-w-3xl">
                       {j.description}
                     </p>
+                  </div>
+                  <div className="text-[11px] font-mono text-white/30 font-bold uppercase pt-1 tracking-widest">
+                    {j.period}
                   </div>
                 </div>
               ))}
@@ -858,24 +855,24 @@ export default function Portfolio() {
 
           <Section id="contact" eyebrow="The Nexus" title="Collaborate" index={3}>
             <div className="grid gap-16 lg:grid-cols-2">
-              <div className="flex flex-col justify-center">
-                <p className="text-3xl text-white/90 mb-12 font-light leading-tight tracking-tight">
+              <div>
+                <p className="text-2xl text-white/80 mb-10 font-light leading-snug">
                   Seeking <span className="text-accent italic font-medium">meaningful partnerships</span> to build thoughtful, high-impact digital products.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <a href="mailto:satwikmani@example.com" className="glass p-8 rounded-[2rem] flex flex-col gap-4 hover:border-accent/40 transition-all group">
-                    <Mail className="h-6 w-6 text-accent" />
-                    <span className="text-sm font-bold text-white/80 group-hover:text-white transition-colors">satwikmani@example.com</span>
+                <div className="space-y-6">
+                  <a href="mailto:satwikmani@example.com" className="group flex items-center gap-5 text-white/80 hover:text-accent transition-all">
+                    <div className="glass p-4 rounded-full ring-1 ring-white/10 group-hover:ring-accent/40 shadow-xl"><Mail className="h-5 w-5" /></div>
+                    <span className="text-base font-bold tracking-wide">satwikmani@example.com</span>
                   </a>
-                  <div className="grid grid-cols-3 gap-4">
-                     <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass rounded-[2rem] flex items-center justify-center hover:text-accent transition-all"><Instagram className="h-6 w-6" /></a>
-                     <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="glass rounded-[2rem] flex items-center justify-center hover:text-accent transition-all"><Linkedin className="h-6 w-6" /></a>
-                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass rounded-[2rem] flex items-center justify-center hover:text-accent transition-all"><Github className="h-6 w-6" /></a>
+                  <div className="flex gap-4 mt-8">
+                     <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Instagram className="h-5 w-5" /></a>
+                     <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Linkedin className="h-5 w-5" /></a>
+                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="glass p-4 rounded-full hover:text-accent hover:-translate-y-1 transition-all shadow-[0_0_15px_rgba(255,68,0,0)] hover:shadow-[0_0_20px_rgba(255,68,0,0.3)]"><Github className="h-5 w-5" /></a>
                   </div>
                 </div>
               </div>
               
-              <div className="glass-card grain p-12 ring-1 ring-accent/20 shadow-[0_0_50px_rgba(255,68,0,0.1)]">
+              <div className="glass-card grain p-10 ring-1 ring-accent/20 shadow-2xl">
                 <ContactForm />
               </div>
             </div>
