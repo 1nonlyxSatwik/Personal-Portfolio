@@ -1,0 +1,124 @@
+Build a high-end, interview-ready personal engineering portfolio for a second-year Computer Science student named Satwik Mani Tripathi.
+The design must feel premium, minimal, and production-grade — similar to Apple, Linear, and Vercel design language — using a dark theme with a restrained orange accent.
+
+Focus on engineering credibility over visual flash.
+
+Core Requirements
+
+1. Hero Section
+
+Large bold typography: “I Build High-Performance Engineering Systems”.
+
+Subtext describing scalable, production-ready web systems.
+
+Clear CTAs:
+
+View GitHub
+
+Download Resume
+
+Contact Me
+
+Subtle motion only (no excessive blur or glow).
+
+Maintain strong contrast and readability.
+
+2. Engineering Impact Section (NEW — critical)
+Add a proof-driven section directly below hero showing:
+
+Real projects shipped
+
+Technologies used (React, Node, Redis, Prisma, etc.)
+
+Live deployment links
+
+GitHub repository links
+
+Performance or scale metrics (realistic, believable)
+
+Design this like a clean stats/credibility panel, not decorative UI.
+
+3. Selected Projects
+Each project card must include:
+
+Clear description of problem solved
+
+Real tech stack
+
+Key engineering challenges
+
+Measurable results
+
+Buttons for:
+
+Live site
+
+GitHub repo
+
+Architecture view
+
+When opening a project:
+Show a system architecture modal with:
+
+Diagram image
+
+API/data flow explanation
+
+Database design summary
+
+Performance considerations
+
+This must feel like a real engineering case study, not a design showcase.
+
+4. Reduce Visual Noise
+
+Remove excessive blur and glow effects.
+
+Keep blur only where it improves hierarchy (project cards or modals).
+
+Prioritize clarity, spacing, and typography.
+
+Make the UI feel senior and production-ready.
+
+5. Profile Section
+
+Professional black-and-white portrait that turns to color on hover.
+
+Clean typography hierarchy.
+
+Structured achievements card with:
+
+LAN Champion — Lucknow University
+
+BGMI Tournament Top-2 Finish
+
+Total Prize Pool Won — ₹2,00,000
+
+Sections for:
+
+Technical Interests
+
+Personal Pursuits
+
+Subtle, slow, premium animations only.
+
+6. Navigation & Contact
+
+Larger, clear glass navigation bar with strong readability.
+
+Smooth scrolling between sections.
+
+Contact icons must:
+
+Open mail client on email click
+
+Link to GitHub and LinkedIn
+
+Include a final CTA footer encouraging collaboration or internships.
+
+7. One Strong Technical Project
+Ensure at least one project demonstrates:
+
+Backend or system design depth
+(real-time system, distributed feature, WebSockets, or similar)
+This is essential for interview credibility.

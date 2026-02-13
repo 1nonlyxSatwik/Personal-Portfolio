@@ -758,16 +758,26 @@ export default function Portfolio() {
               <motion.a
                 whileHover={{ scale: 1.05, y: -4, boxShadow: "0 20px 40px rgba(255, 68, 0, 0.2)" }}
                 whileTap={{ scale: 0.95 }}
-                href="#projects"
-                className="glass grain px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest text-white ring-2 ring-accent/50 bg-accent/10 shadow-[0_0_30px_rgba(255,68,0,0.1)] hover:bg-accent/20 transition-all"
+                href="https://github.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass grain px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest text-white ring-2 ring-accent/50 bg-accent/10 shadow-[0_0_30px_rgba(255, 68, 0, 0.1)] hover:bg-accent/20 transition-all"
               >
-                View Artifacts
+                View GitHub
               </motion.a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-10 py-5 text-sm font-bold uppercase tracking-widest text-white/40 hover:text-accent transition-all"
+              >
+                Download Resume
+              </a>
               <a
                 href="#contact"
                 className="px-10 py-5 text-sm font-bold uppercase tracking-widest text-white/40 hover:text-accent transition-all"
               >
-                Get in Touch
+                Contact Me
               </a>
             </div>
           </motion.div>

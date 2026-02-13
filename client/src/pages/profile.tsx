@@ -73,14 +73,14 @@ export default function Profile() {
         </Link>
       </nav>
 
-      <main className="relative max-w-6xl mx-auto px-6 py-32 sm:py-48">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+      <main className="relative max-w-6xl mx-auto px-6 py-16 sm:py-24">
+        <div className="grid lg:grid-cols-2 gap-24 items-start">
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 30 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex justify-center lg:justify-start order-2 lg:order-1"
+            className="relative flex justify-center lg:justify-start lg:sticky lg:top-32"
           >
             <div className="relative group">
               {/* Background Breathing Light */}
