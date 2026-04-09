@@ -3,13 +3,16 @@ import { ChevronLeft, Github, Instagram, Linkedin, Mail, Heart, Code, Coffee, Tr
 import { Link } from "wouter";
 import profileImg from "/images/profile.jpg";
 
+const customEase = [0.16, 1, 0.3, 1] as const;
+const softEase = [0.22, 1, 0.36, 1] as const;
+
 function AchievementCard() {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: 0.8, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay: 0.8, duration: 0.8, ease: customEase }}
       className="glass-card p-10 border-accent/10 bg-accent/[0.02] ring-1 ring-accent/5"
     >
       <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-8 flex items-center gap-2">
@@ -52,14 +55,14 @@ export default function Profile() {
       y: 0, 
       transition: { 
         duration: 0.6, 
-        ease: [0.16, 1, 0.3, 1] 
+        ease: customEase 
       } 
     },
   };
 
   return (
-    <div className="dark min-h-screen bg-[#050505] text-white selection:bg-accent/40 selection:text-white overflow-x-hidden">
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,68,0,0.03),transparent_70%)] pointer-events-none" />
+    <div className="dark min-h-screen bg-[#11131A] text-white selection:bg-accent/40 selection:text-white overflow-x-hidden">
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,59,59,0.03),transparent_70%)] pointer-events-none" />
       
       <nav className="fixed top-8 left-8 z-50">
         <Link href="/">
@@ -101,7 +104,7 @@ export default function Profile() {
                 <motion.div 
                   className="w-full h-full relative"
                   whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.6, ease: softEase }}
                 >
                   <img 
                     src={profileImg} 
@@ -120,17 +123,17 @@ export default function Profile() {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, delay: 0.2, ease: customEase }}
                 className="text-accent text-xs font-black uppercase tracking-[0.5em] flex items-center gap-4 mb-4"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(255,68,0,1)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(255,59,59,1)]" />
                 The Architect
               </motion.div>
               <motion.h1 
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.9, delay: 0.3, ease: customEase }}
                 className="text-7xl sm:text-8xl font-black tracking-tighter leading-[0.85]"
               >
                 Satwik Mani <br />
@@ -140,7 +143,7 @@ export default function Profile() {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.1, delay: 0.5, ease: customEase }}
                 className="mt-4"
               >
                 <p className="text-lg text-white/75 font-normal leading-[1.6] max-w-[520px] tracking-tight">
